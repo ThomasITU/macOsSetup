@@ -42,16 +42,6 @@
       "Bash(reboot*)"
     ]
   },
-  "mcpServers": {
-    "vexp": {
-      "command": "vexp-core",
-      "args": [
-        "mcp",
-        "--workspace",
-        "/Users/thomas/Desktop/TradingBot"
-      ]
-    }
-  },
   "model": "sonnet",
   "hooks": {
     "Notification": [
