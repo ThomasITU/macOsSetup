@@ -16,3 +16,6 @@ stty -ixon
 alias ll="ls -la"
 alias gs="git status"
 alias v="nvim"
+
+# Machine-specific overrides (not tracked in git)
+[ -f ~/.zshrc.local ] && source ~/.zshrc.local
