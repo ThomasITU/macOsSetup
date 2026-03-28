@@ -4,8 +4,26 @@
   "permissions": {
     "allow": [
       "Bash(cd *)",
+      "Bash(ls *)",
+      "Bash(cat *)",
+      "Bash(head *)",
+      "Bash(tail *)",
+      "Bash(find *)",
+      "Bash(wc *)",
+      "Bash(which *)",
+      "Bash(echo *)",
+      "Bash(pwd)",
+      "Bash(env)",
+      "Bash(* --version)",
+      "Bash(* --help)",
       "Bash(git *)",
-      "Bash(gh *)"
+      "Bash(gh *)",
+      "Bash(brew list*)",
+      "Bash(brew info *)",
+      "Bash(npm list*)",
+      "Bash(npm info *)",
+      "Bash(pip list*)",
+      "Bash(pip show *)"
     ],
     "deny": [
       "Bash(git push --force*)",
