@@ -9,5 +9,6 @@ brew "shfmt"
 
 # GUI apps
 cask "ghostty"
+cask "hammerspoon"
 cask "rectangle"
 cask "scroll-reverser"

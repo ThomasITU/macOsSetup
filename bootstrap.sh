@@ -25,6 +25,7 @@ brew bundle --file=./Brewfile
 #############################################
 mkdir -p ~/.config/nvim
 mkdir -p ~/.claude/hooks
+mkdir -p ~/.hammerspoon
 
 #############################################
 # Symlink configs (safe + idempotent)
@@ -52,6 +53,7 @@ REPO_DIR="$(cd "$(dirname "$0")" && pwd -P)"
 link_file "$REPO_DIR/nvim/init.lua" "$HOME/.config/nvim/init.lua"
 link_file "$REPO_DIR/tmux/.tmux.conf" "$HOME/.tmux.conf"
 link_file "$REPO_DIR/zsh/.zshrc" "$HOME/.zshrc"
+link_file "$REPO_DIR/hammerspoon/init.lua" "$HOME/.hammerspoon/init.lua"
 link_file "$REPO_DIR/claude/CLAUDE.md" "$HOME/.claude/CLAUDE.md"
 link_file "$REPO_DIR/claude/settings.json" "$HOME/.claude/settings.json"
 link_file "$REPO_DIR/claude/hooks/notification_notify.sh" "$HOME/.claude/hooks/notification_notify.sh"
