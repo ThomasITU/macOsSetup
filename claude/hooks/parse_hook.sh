@@ -30,7 +30,7 @@ const vars = {
   PROJECT: project,
   MESSAGE: d.message || 'Needs your attention',
   NTYPE: d.notification_type || 'unknown',
-  PREVIEW: (d.last_assistant_message || '').slice(0, 120),
+  PREVIEW: (d.last_assistant_message || '').slice(0, 200),
 };
 
 for (const [k, v] of Object.entries(vars)) {
