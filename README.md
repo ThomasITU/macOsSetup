@@ -1,151 +1,122 @@
-# MacOS Development Setup
+# macOS Development Setup
 
-This repository contains scripts and configuration files to set up a clean development environment on macOS, including:
-
-Homebrew
-Git
-Neovim
-tmux
-fzf
-Ghostty
-LSP + formatting tools
+Scripts and configuration files to set up a clean development environment on macOS.
 
 ---
 
 # Quick Start
 
-## Run the bootstrap script directly (repository needs to be public):
+## One-liner install (repo must be public):
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/ThomasITU/macOsSetup/main/setup.sh | bash
+curl -fsSL https://raw.githubusercontent.com/ThomasITU/macOsSetup/main/install.sh | bash
 ```
 
-## Clone the repo and run the bootstrap script:
+## Or clone and run manually:
 
 ```bash
 git clone https://github.com/ThomasITU/macOsSetup.git
 cd macOsSetup
-chmod +x bootstrap.sh
 ./bootstrap.sh
 ```
 
-The script will:
+The bootstrap script will:
 
-Install Homebrew (if missing)
-Install required packages
-Copy Neovim and tmux configs
-Install Neovim plugins automatically
+- Install Homebrew (if missing)
+- Install all packages from the Brewfile
+- Symlink configs for Neovim, tmux, zsh, Ghostty, Hammerspoon, and Claude Code
+- Back up any existing config files before replacing them
+- Install Neovim plugins via Lazy
+- Set up fzf keybindings
+- Launch Rectangle and Scroll Reverser
 
----
-
-#  Tools Included
-
-##  Terminal
-Homebrew
-Ghostty
-tmux
-fzf
+The script is idempotent — safe to run multiple times.
 
 ---
 
-# Learning the Hotkeys Faster
+# Tools Included
+
+## Terminal
+- **Ghostty** — terminal emulator
+- **tmux** — terminal multiplexer
+- **fzf** — fuzzy finder
+- **zsh** — shell config with aliases and fzf integration
+
+## Editor
+- **Neovim** with:
+  - LSP servers (pyright, lua_ls, bashls, marksman, jsonls, yamlls)
+  - Formatters (black, isort, shfmt, prettier)
+  - AI completions (Copilot, Codeium, Supermaven) with toggle keys
+  - Treesitter, nvim-cmp, fzf-lua
+
+## Automation
+- **Hammerspoon** — double-tap Ctrl to approve Claude Code notifications
+
+## Window Management
+- **Rectangle** — keyboard-driven window tiling
+
+## Claude Code
+- Custom hooks with notification sounds
+- Permission allow-lists
+- Global guidelines (CLAUDE.md)
+
+## Other
+- Scroll Reverser, Node, Python, shfmt
 
 ---
 
-## Neovim / Vim Cheat Sheets
+# Config Locations
 
-• Official Vim cheat sheet
-[https://vim.rtorr.com/](https://vim.rtorr.com/)
-
-• Interactive Vim tutorial (run inside terminal)
-
-```bash
-vimtutor
-```
-
-• Vim Adventure (learn Vim motions like a game)
-[https://vim-adventures.com/](https://vim-adventures.com/)
-
-• Neovim documentation
-[https://neovim.io/doc/](https://neovim.io/doc/)
-
----
-
-##  tmux Cheat Sheets
-
-• tmux cheat sheet
-[https://tmuxcheatsheet.com/](https://tmuxcheatsheet.com/)
-
-• Practical tmux guide
-[https://github.com/tmux/tmux/wiki](https://github.com/tmux/tmux/wiki)
-
-• Interactive tmux tutorial
-[https://leanpub.com/the-tao-of-tmux](https://leanpub.com/the-tao-of-tmux)
-
----
-
-##  fzf Keybindings
-
-Common defaults:
-
-* `CTRL + T` → Fuzzy file search
-* `CTRL + R` → Fuzzy history search
-* `ALT + C` → Fuzzy directory jump
-* `j / k` → Move up/down in results
-* `Enter` → Select
-
-Official repo:
-[https://github.com/junegunn/fzf](https://github.com/junegunn/fzf)
-
----
-
-# Recommended Learning Path
-
-If you're new to Vim-style editing:
-
-1. Run `vimtutor`
-2. Practice `hjkl` navigation daily
-3. Learn text objects (`ciw`, `di"`, `yaw`)
-4. Learn motions (`w`, `b`, `e`, `gg`, `G`)
-5. Add tmux navigation
-6. Master fuzzy search
-
----
-
-#  Config Locations
-
-Neovim config:
-
-```
-.config/nvim/init.lua
-```
-
-tmux config:
-
-```
-tmux/.tmux.conf
-```
-
-zsh config:
-
-```
-zsh/.zshrc
-```
-
----
+| Config | Path |
+|--------|------|
+| Neovim | `nvim/init.lua` |
+| tmux | `tmux/.tmux.conf` |
+| zsh | `zsh/.zshrc` |
+| Hammerspoon | `hammerspoon/init.lua` |
+| Claude Code | `claude/settings.json`, `claude/CLAUDE.md` |
 
 Leader key = `Space`
-`<leader>w` → Save
-`<leader>q` → Quit
-Use fuzzy search for fast file navigation
-Stay on home row (hjkl)
+`<leader>w` — Save
+`<leader>q` — Quit
+
+---
+
+# Learning Resources
+
+## Neovim / Vim
+
+- [Vim cheat sheet](https://vim.rtorr.com/)
+- [Vim Adventures](https://vim-adventures.com/) — learn motions like a game
+- [Neovim docs](https://neovim.io/doc/)
+- Run `vimtutor` in your terminal
+
+## tmux
+
+- [tmux cheat sheet](https://tmuxcheatsheet.com/)
+- [tmux wiki](https://github.com/tmux/tmux/wiki)
+
+## fzf Keybindings
+
+| Key | Action |
+|-----|--------|
+| `Ctrl+T` | Fuzzy file search |
+| `Ctrl+R` | Fuzzy history search |
+| `Alt+C` | Fuzzy directory jump |
+
+[fzf repo](https://github.com/junegunn/fzf)
 
 ---
 
 # Re-running Setup
 
-If you modify the Neovim plugin list, you can reinstall plugins with:
+To reinstall Neovim plugins:
 
 ```bash
 nvim --headless "+Lazy! sync" +qa
+```
+
+To re-run the full setup:
+
+```bash
+./bootstrap.sh
 ```

@@ -1,0 +1,70 @@
+{
+  "env": {
+  },
+  "permissions": {
+    "allow": [
+      "Bash(cd *)",
+      "Bash(ls *)",
+      "Bash(cat *)",
+      "Bash(head *)",
+      "Bash(tail *)",
+      "Bash(find *)",
+      "Bash(wc *)",
+      "Bash(which *)",
+      "Bash(echo *)",
+      "Bash(pwd)",
+      "Bash(env)",
+      "Bash(* --version)",
+      "Bash(* --help)",
+      "Bash(git *)",
+      "Bash(gh *)",
+      "Bash(brew list*)",
+      "Bash(brew info *)",
+      "Bash(npm list*)",
+      "Bash(npm info *)",
+      "Bash(pip list*)",
+      "Bash(pip show *)"
+    ],
+    "deny": [
+      "Bash(git push --force*)",
+      "Bash(git push -f*)",
+      "Bash(git reset --hard*)",
+      "Bash(git clean -f*)",
+      "Bash(gh pr close*)",
+      "Bash(gh pr merge*)",
+      "Bash(gh issue close*)",
+      "Bash(sudo *)",
+      "Bash(rm -rf *)",
+      "Bash(rm -r /*)",
+      "Bash(curl *)",
+      "Bash(wget *)",
+      "Bash(shutdown*)",
+      "Bash(reboot*)"
+    ]
+  },
+  "model": "sonnet",
+  "hooks": {
+    "Notification": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/notification_notify.sh"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/stop_notify.sh"
+          }
+        ]
+      }
+    ]
+  }
+}
