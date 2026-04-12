@@ -1,6 +1,5 @@
 {
-  "env": {
-  },
+  "env": {},
   "permissions": {
     "allow": [
       "Bash(cd *)",
@@ -22,28 +21,73 @@
       "Bash(brew info *)",
       "Bash(npm list*)",
       "Bash(npm info *)",
+      "Bash(npm run *)",
+      "Bash(npm ci)",
+      "Bash(npx *)",
       "Bash(pip list*)",
-      "Bash(pip show *)"
+      "Bash(pip show *)",
+      "Bash(uv *)",
+      "Bash(python3 *)",
+      "Bash(jq *)",
+      "Bash(grep *)",
+      "Bash(awk *)",
+      "Bash(cut *)",
+      "Bash(tr *)",
+      "Bash(sort *)",
+      "Bash(uniq *)",
+      "Bash(date *)",
+      "Bash(printf *)",
+      "Bash(stat *)",
+      "Bash(mkdir *)",
+      "Bash(cp *)",
+      "Bash(mv *)",
+      "Bash(chmod *)",
+      "Bash(sleep *)",
+      "Bash(hostname *)",
+      "Bash(pg_isready *)",
+      "Bash(docker ps*)",
+      "Bash(docker logs *)",
+      "Bash(docker inspect *)",
+      "Bash(docker compose ps*)",
+      "Bash(docker compose logs *)"
     ],
     "deny": [
       "Bash(git push --force*)",
       "Bash(git push -f*)",
       "Bash(git reset --hard*)",
       "Bash(git clean -f*)",
-      "Bash(gh pr close*)",
-      "Bash(gh pr merge*)",
-      "Bash(gh issue close*)",
+      "Bash(gh pr merge *)",
+      "Bash(gh release *)",
+      "Bash(gh repo delete*)",
+      "Bash(gh issue delete*)",
       "Bash(sudo *)",
       "Bash(rm -rf *)",
       "Bash(rm -r /*)",
       "Bash(curl *)",
       "Bash(wget *)",
       "Bash(shutdown*)",
-      "Bash(reboot*)"
-    ]
+      "Bash(reboot*)",
+      "Bash(docker rm *)",
+      "Bash(docker rmi *)",
+      "Bash(docker volume rm *)",
+      "Bash(docker compose down -v*)",
+      "Bash(npm publish*)"
+    ],
+    "defaultMode": "auto"
   },
   "model": "sonnet",
   "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/session_start.sh",
+            "statusMessage": "Loading session defaults..."
+          }
+        ]
+      }
+    ],
     "Notification": [
       {
         "matcher": "",
@@ -65,6 +109,36 @@
           }
         ]
       }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Glob|Grep",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "[ -f graphify-out/graph.json ] && echo '{\"hookSpecificOutput\":{\"hookEventName\":\"PreToolUse\",\"additionalContext\":\"graphify: Knowledge graph exists. Read graphify-out/GRAPH_REPORT.md for god nodes and community structure before searching raw files.\"}}' || true"
+          }
+        ]
+      }
     ]
-  }
+  },
+  "enabledPlugins": {
+    "frontend-design@claude-plugins-official": true,
+    "superpowers@claude-plugins-official": true,
+    "context7@claude-plugins-official": true,
+    "code-review@claude-plugins-official": true,
+    "code-simplifier@claude-plugins-official": true,
+    "security-guidance@claude-plugins-official": true,
+    "cli-anything@cli-anything": true
+  },
+  "extraKnownMarketplaces": {
+    "cli-anything": {
+      "source": {
+        "source": "github",
+        "repo": "hkuds/cli-anything"
+      }
+    }
+  },
+  "skipAutoPermissionPrompt": true,
+  "disableAutoMode": "disable"
 }
