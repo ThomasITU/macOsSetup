@@ -124,6 +124,27 @@ if has 5; then
   link_file "$REPO_DIR/claude/hooks/parse_hook.sh" "$HOME/.claude/hooks/parse_hook.sh"
   link_file "$REPO_DIR/claude/hooks/notification_notify.sh" "$HOME/.claude/hooks/notification_notify.sh"
   link_file "$REPO_DIR/claude/hooks/stop_notify.sh" "$HOME/.claude/hooks/stop_notify.sh"
+  link_file "$REPO_DIR/claude/hooks/session_start.sh" "$HOME/.claude/hooks/session_start.sh"
+
+  # Sync custom skills
+  mkdir -p ~/.claude/skills
+  for skill_dir in "$REPO_DIR"/claude/skills/*/; do
+    skill_dir="${skill_dir%/}"
+    skill_name="$(basename "$skill_dir")"
+    link_file "$skill_dir" "$HOME/.claude/skills/$skill_name"
+  done
+
+  # Install graphify CLI
+  if ! command -v graphify &>/dev/null; then
+    echo "  Installing graphify..."
+    if command -v uv &>/dev/null; then
+      uv tool install graphifyy
+    elif [ -x "$HOME/.local/bin/uv" ]; then
+      "$HOME/.local/bin/uv" tool install graphifyy
+    else
+      pip3 install --user graphifyy
+    fi
+  fi
 
   echo "  Note: Claude hooks require Hammerspoon (option 4) for terminal notifications."
 fi
