@@ -24,7 +24,7 @@ fi
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
 
 # Backlog.md setup
-fpath=(/Users/thomas.w.rorbech/.zsh/completions $fpath)
+fpath=($HOME/.zsh/completions $fpath)
 autoload -Uz compinit && compinit
 
 # Aliases
@@ -33,14 +33,14 @@ alias gs="git status"
 alias v="nvim"
 alias gaa="git add ."
 alias gc="git commit -m"
-alias gca="git commit -m -a":w
+alias gca="git commit -am"
 
 # Docker: allow both old (docker-compose) and new (docker compose) notation
-alias docker compose="docker-compose"
+alias docker-compose="docker-compose"
 
 # Environment variables
 # Created by `pipx` on 2026-02-23 15:24:13
-export PATH="$PATH:/Users/thomas.w.rorbech/.local/bin"
+export PATH="$PATH:$HOME/.local/bin"
 
 export OLLAMA_HOST=0.0.0.0:8000
 export OLLAMA_FLASH_ATTENTION=1
@@ -51,6 +51,6 @@ export OLLAMA_CONTEXT_LENGTH=256000
 # export ANTHROPIC_BASE_URL="http://localhost:8000"
 # export CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1
 
-Homebrew
+# Homebrew
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
