@@ -173,5 +173,18 @@ if has 7; then
   open -g -a "Scroll Reverser" 2>/dev/null || true
 fi
 
+# Install git post-merge hook so sync.sh runs automatically after git pull
+echo "Installing git post-merge hook..."
+HOOK_FILE="$REPO_DIR/.git/hooks/post-merge"
+cat > "$HOOK_FILE" <<'EOF'
+#!/usr/bin/env bash
+# Runs automatically after `git pull` / `git merge`
+REPO_DIR="$(cd "$(dirname "$0")/../.." && pwd -P)"
+echo "[post-merge] re-syncing dotfiles..."
+"$REPO_DIR/sync.sh"
+EOF
+chmod +x "$HOOK_FILE"
+echo "  Installed $HOOK_FILE"
+
 echo ""
 echo "Bootstrap complete."

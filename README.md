@@ -107,6 +107,55 @@ Leader key = `Space`
 
 ---
 
+# Syncing After a Pull
+
+After pulling updates from the repo, run:
+
+```bash
+./sync.sh
+```
+
+This re-links all dotfiles and installs any missing Claude plugins — no prompts, no package installs. If you ran `bootstrap.sh` at least once, this also fires **automatically** after every `git pull` via a post-merge hook.
+
+---
+
+# Claude Code Plugins
+
+The following plugins are tracked in `claude/plugins.txt` and auto-installed by `sync.sh` on any machine:
+
+| Plugin | Marketplace | Description |
+|--------|-------------|-------------|
+| `superpowers` | claude-plugins-official | Skills framework — brainstorming, TDD, debugging workflows |
+| `frontend-design` | claude-plugins-official | High-quality UI generation skill |
+| `code-review` | claude-plugins-official | PR review skill |
+| `code-simplifier` | claude-plugins-official | Code cleanup and refactor skill |
+| `context7` | claude-plugins-official | Fetches up-to-date library docs during coding |
+| `security-guidance` | claude-plugins-official | Security best-practice guidance |
+| `cli-anything` | cli-anything | Run any CLI tool as a Claude agent |
+
+To add a plugin, append it to `claude/plugins.txt` using the format `plugin-name@marketplace` and run `./sync.sh`.
+
+Registered marketplaces (added automatically by `sync.sh`):
+- `github:anthropics/claude-plugins-official`
+- `github:hkuds/cli-anything`
+- `github:anthropics/skills`
+
+---
+
+# Claude Code Skills
+
+Custom skills live in `claude/skills/` and are symlinked to `~/.claude/skills/` by `sync.sh`. Any new folder added there is picked up automatically on next sync.
+
+| Skill | Description |
+|-------|-------------|
+| `caveman` | Ultra-compressed communication mode (~75% fewer tokens) |
+| `caveman-commit` | Compressed conventional commit message generator |
+| `caveman-review` | Compressed PR review comments |
+| `compress` | Compresses CLAUDE.md / memory files into caveman format |
+| `graphify` | Converts any input into an interactive knowledge graph |
+
+---
+
 # Re-running Setup
 
 To reinstall Neovim plugins:

@@ -1,0 +1,11 @@
+# Claude Code plugins — one per line: plugin-name@marketplace
+# Add/remove entries here; sync.sh will install any missing ones.
+# Marketplaces are registered automatically before install.
+
+superpowers@claude-plugins-official
+frontend-design@claude-plugins-official
+code-review@claude-plugins-official
+code-simplifier@claude-plugins-official
+context7@claude-plugins-official
+security-guidance@claude-plugins-official
+cli-anything@cli-anything
