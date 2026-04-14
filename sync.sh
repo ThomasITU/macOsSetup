@@ -74,6 +74,30 @@ if [ -d "$REPO_DIR/claude" ]; then
   done
 fi
 
+# ── claude plugins ───────────────────────────────────────────────────────────
+if [ -f "$REPO_DIR/claude/plugins.txt" ] && command -v claude &>/dev/null; then
+  echo "[claude plugins]"
+
+  # Ensure known marketplaces are registered
+  claude plugin marketplace add github:anthropics/claude-plugins-official 2>/dev/null || true
+  claude plugin marketplace add github:hkuds/cli-anything                 2>/dev/null || true
+
+  # Get currently installed plugins (names only)
+  installed=$(claude plugin list 2>/dev/null | grep '❯' | awk '{print $2}' || true)
+
+  while IFS= read -r line || [ -n "$line" ]; do
+    # Skip comments and blank lines
+    [[ "$line" =~ ^#.*$ || -z "$line" ]] && continue
+    plugin="$line"
+    if echo "$installed" | grep -qF "$plugin"; then
+      echo "  ok    $plugin"
+    else
+      echo "  install $plugin"
+      claude plugin install "$plugin" 2>&1 | sed 's/^/    /'
+    fi
+  done < "$REPO_DIR/claude/plugins.txt"
+fi
+
 # ── VS Code extension (copy, not symlink — VS Code doesn't follow deep symlinks)
 if [ -d "$REPO_DIR/vscode/claude-terminal-focus" ]; then
   echo "[vscode]"
